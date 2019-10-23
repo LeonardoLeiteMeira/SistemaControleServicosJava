@@ -98,7 +98,7 @@ public class TesteSistemaDeServicos {
                                 
                             //Senha usuario    
                             case 6:
-                                System.out.println("Digite sua novo senha de usuario: ");
+                                System.out.println("Digite sua nova senha de usuario: ");
                                 senha_nova = dadoLido.nextLine();
                                 controleUsuario.verificaQuemLogou(id_usuario, senha_usuario).setSenha_usuario(senha_nova);
                                 break;
