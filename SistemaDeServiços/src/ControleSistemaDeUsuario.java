@@ -12,7 +12,6 @@ public class ControleSistemaDeUsuario {
     //Construtor classe de Controle
     public ControleSistemaDeUsuario(String diretorio) throws IOException {
         usuarios = new ArrayList<>();
-        lerDados(diretorio);
     }
 
     //Getters e Setters para a classe de Controle
@@ -31,13 +30,31 @@ public class ControleSistemaDeUsuario {
     }
 
     //Outra para o Administrador,apenas adms cadastram adms
-    public boolean verificaAdministrador(String id_adm, String senha_adm) {
-        return (id_adm.equals("admin") && senha_adm.equals("admin"));
+    public boolean verificaAdministrador(String id, String senha) {
+        for (Usuario usuario : usuarios) {
+            if (usuario instanceof Administrador) {
+                if (usuario.getId_usuario().equals(id)) {
+                    if (usuario.getSenha_usuario().equals(senha)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
     }
 
-    public void cadastraAdministrador(Administrador novoAdm) {
+    //Modulo que gerencia o login dos usuarios do sistema
+    public boolean loginUsuario(String id, String senha) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getId_usuario().equals(id)) {
+                if (usuario.getSenha_usuario().equals(senha)) {
+                    return true;
+                }
+            }
+        }
 
-        usuarios.add(novoAdm);
+        return false;
     }
 
     //Metodo que le os dados de um arquivo passado como parametro,conforme o modelo
@@ -89,15 +106,15 @@ public class ControleSistemaDeUsuario {
 
             //Aqui acontece a logica de insercao
             switch (tipo) {
-                case "Administrador":
+                case "class Administrador":
                     usuarios.add(new Administrador(nome, endereco, email, telefone, id_usuario, senha_usuario));
                     break;
 
-                case "Cliente":
+                case "class Cliente":
                     usuarios.add(new Cliente(nome, endereco, email, telefone, id_usuario, senha_usuario));
                     break;
 
-                case "Profissional":
+                case "class Profissional":
                     usuarios.add(new Profissional(nome, endereco, email, telefone, id_usuario, senha_usuario));
                     break;
 
@@ -112,28 +129,38 @@ public class ControleSistemaDeUsuario {
 
     //Metodo que escreve os dados em um arquivo conforme o modelo
     private void escreverDados(String caminho) throws IOException {
-        FileWriter arq = new FileWriter(caminho);
-        PrintWriter gravarArq = new PrintWriter(arq);
+        FileWriter arq = new FileWriter(new File(caminho), false);
+        PrintWriter gravarArq = new PrintWriter(arq, false);
 
         for (Usuario usuario : usuarios) {
-            gravarArq.println(usuario.getNome());
-            gravarArq.println(usuario.getEndereco());
-            gravarArq.println(usuario.getEmail());
-            gravarArq.println(usuario.getTelefone());
-            gravarArq.println(usuario.getId_usuario());
-            gravarArq.println(usuario.getSenha_usuario());
-            gravarArq.println(usuario.getNome());
-            gravarArq.println();
+                gravarArq.println(usuario.getNome());
+                gravarArq.println(usuario.getEndereco());
+                gravarArq.println(usuario.getEmail());
+                gravarArq.println(usuario.getTelefone());
+                gravarArq.println(usuario.getId_usuario());
+                gravarArq.println(usuario.getSenha_usuario());
+                gravarArq.println(usuario.getClass());
+                gravarArq.println();
         }
-
+        
         arq.close();
+    }
+    
+    //Metodo que verifica se determinado usuario já existe
+    private boolean verificaSeExiste(Usuario user){
+        for (Usuario usuario : usuarios) {
+            if(usuario.getId_usuario().equals(user.getId_usuario()))
+                return true;
+        }
+        
+        return false;
     }
 
     //Aqui a gente executa tudo que é necessário para fechar o programa corretamente
     public void finalizarPrograma(String diretorio) throws IOException {
         escreverDados(diretorio);
     }
-    
+
     //Aqui a gente executa tudo que é necessario para iniciar o programa corretamente
     public void iniciarPrograma(String diretorio) throws IOException {
         lerDados(diretorio);

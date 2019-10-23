@@ -1,0 +1,40 @@
+a
+a
+a
+a
+a
+a
+class Administrador
+
+b
+b
+b
+b
+b
+b
+class Profissional
+
+c
+c
+c
+c
+c
+c
+class Cliente
+
+d
+d
+d
+d
+d
+d
+class Profissional
+
+f
+f
+f
+f
+f
+f
+class Administrador
+
