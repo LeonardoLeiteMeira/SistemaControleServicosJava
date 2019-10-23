@@ -146,14 +146,14 @@ public class ControleSistemaDeUsuario {
         arq.close();
     }
     
-    //Metodo que verifica se determinado usuario já existe
-    private boolean verificaSeExiste(Usuario user){
+    //Metodo que verifica quem esta logado
+    public Usuario verificaQuemLogou(String id, String senha){
         for (Usuario usuario : usuarios) {
-            if(usuario.getId_usuario().equals(user.getId_usuario()))
-                return true;
+            if(usuario.getId_usuario().equals(id) && usuario.getSenha_usuario().equals(senha) )
+                return usuario;
         }
         
-        return false;
+        return null;
     }
 
     //Aqui a gente executa tudo que é necessário para fechar o programa corretamente

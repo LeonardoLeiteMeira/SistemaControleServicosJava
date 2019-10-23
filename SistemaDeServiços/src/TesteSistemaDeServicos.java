@@ -7,16 +7,17 @@ public class TesteSistemaDeServicos {
     public static void main(String[] args) throws IOException {
 
         //Aqui instanciamos uma "unidade" de controle do usuario e lemos o arquivo de texto
-        ControleSistemaDeUsuario controleUsuario = new ControleSistemaDeUsuario("dados.txt");
-        controleUsuario.iniciarPrograma("dados.txt");
-        //utilizar args[0] ?
+        ControleSistemaDeUsuario controleUsuario = new ControleSistemaDeUsuario("dadosUsuario.txt");
+        controleUsuario.iniciarPrograma("dadosUsuario.txt");
 
         //Aqui instaniamos variaveis de auxilio
         Scanner dadoLido = new Scanner(System.in);
-        int opcao_usuario, opcao2_usuario;
+        int opcao_usuario, opcao2_usuario, opcao3_usuario;
         String nome_usuario;
         String id_usuario;
         String senha_usuario;
+        String id_nova;
+        String senha_nova;
         String telefone_usuario;
         String endereco_usuario;
         String email_usuario;
@@ -31,8 +32,7 @@ public class TesteSistemaDeServicos {
             System.out.println("[1] Login");
             System.out.println("[2] Cadastrar");
             System.out.println("[3] Recuperar Senha");
-            System.out.println("[4] Redefinir Senha");
-            System.out.println("[5] Sair");
+            System.out.println("[4] Sair");
             opcao_usuario = dadoLido.nextInt();
             dadoLido.nextLine(); //esvazia o buffer do teclado
 
@@ -45,8 +45,70 @@ public class TesteSistemaDeServicos {
                     System.out.println("Digite sua senha do usuario: ");
                     senha_usuario = dadoLido.nextLine();
 
+                    //Aqui será dentro do login
                     if (controleUsuario.loginUsuario(id_usuario, senha_usuario)) {
-                        System.out.println("Logado com sucesso !");
+
+                        System.out.println("Bem vindo !");
+                        System.out.println("Selecione sua opcao:");
+                        System.out.println("[1] Alterar nome");
+                        System.out.println("[2] Alterar endereco");
+                        System.out.println("[3] Alterar email");
+                        System.out.println("[4] Alterar telefone");
+                        System.out.println("[5] Alterar nome de usuario");
+                        System.out.println("[6] Alterar senha de usuario");
+                        opcao3_usuario = dadoLido.nextInt();
+                        dadoLido.nextLine(); //esvazia o buffer do teclado
+
+                        switch (opcao3_usuario) {
+                            
+                            //Nome
+                            case 1:
+                                System.out.println("Digite seu novo nome: ");
+                                nome_usuario = dadoLido.nextLine();
+                                controleUsuario.verificaQuemLogou(id_usuario, senha_usuario).setNome(nome_usuario);
+                                break;
+                                
+                            //Endereco
+                            case 2:
+                                System.out.println("Digite seu novo endereco: ");
+                                endereco_usuario = dadoLido.nextLine();
+                                controleUsuario.verificaQuemLogou(id_usuario, senha_usuario).setEndereco(endereco_usuario);
+                                break;
+                                
+                            //Email   
+                            case 3:
+                                System.out.println("Digite seu novo email: ");
+                                email_usuario = dadoLido.nextLine();
+                                controleUsuario.verificaQuemLogou(id_usuario, senha_usuario).setEmail(email_usuario);
+                                break;
+                                
+                            //Telefone    
+                            case 4:
+                                System.out.println("Digite seu novo telefone: ");
+                                telefone_usuario = dadoLido.nextLine();
+                                controleUsuario.verificaQuemLogou(id_usuario, senha_usuario).setTelefone(telefone_usuario);
+                                break;
+                                
+                            //Nome usuario    
+                            case 5:
+                                System.out.println("Digite seu novo nome de usuario: ");
+                                id_nova = dadoLido.nextLine();
+                                controleUsuario.verificaQuemLogou(id_usuario, senha_usuario).setId_usuario(id_nova);
+                                break;
+                                
+                            //Senha usuario    
+                            case 6:
+                                System.out.println("Digite sua novo senha de usuario: ");
+                                senha_nova = dadoLido.nextLine();
+                                controleUsuario.verificaQuemLogou(id_usuario, senha_usuario).setSenha_usuario(senha_nova);
+                                break;
+
+                            //Caso default
+                            default:
+                                System.out.println("Nao existe tal possibilidade");
+                                break;
+                        }
+
                     } else {
                         System.out.println("Tente novamente !");
                     }
@@ -134,6 +196,11 @@ public class TesteSistemaDeServicos {
                             }
 
                             break;
+
+                        //Caso default
+                        default:
+                            System.out.println("Nao existe tal possibilidade");
+                            break;
                     }
 
                     break;
@@ -142,22 +209,19 @@ public class TesteSistemaDeServicos {
                 case 3:
                     break;
 
-                //Caso Redefinir senha 
-                case 4:
-                    break;
-
                 //Caso de saida    
-                case 5:
+                case 4:
                     //Aqui finalizamos o programa e salvamos todas as alteracoes feitas
-                    controleUsuario.finalizarPrograma("dados.txt");
+                    controleUsuario.finalizarPrograma("dadosUsuario.txt");
                     break;
 
                 //Caso default
                 default:
                     System.out.println("Nao existe tal possibilidade");
+                    break;
             }
 
-        } while (opcao_usuario != 5);
+        } while (opcao_usuario != 4);
     }
 
 }
