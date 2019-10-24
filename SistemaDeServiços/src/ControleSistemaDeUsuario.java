@@ -25,8 +25,14 @@ public class ControleSistemaDeUsuario {
 
     //Aqui sao duas funcoes de cadostro: uma para os usuarios "normais",ou seja,
     //clientes e funcionários
-    public void cadastraUsuario(Usuario novoUser) {
+    public boolean cadastraUsuario(Usuario novoUser) {
+        for(Usuario usuario: usuarios){
+            if(usuario.getId_usuario().equals(novoUser.getId_usuario())){
+                return false;
+            }   
+        }
         usuarios.add(novoUser);
+        return true;
     }
 
     //Outra para o Administrador,apenas adms cadastram adms

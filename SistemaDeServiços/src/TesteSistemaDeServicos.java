@@ -23,6 +23,7 @@ public class TesteSistemaDeServicos {
         String email_usuario;
         String id_adm;
         String senha_adm;
+        boolean continua = true;
 
         //Aqui iniciaremos a relacao com o usuario do sistema
         do {
@@ -56,53 +57,58 @@ public class TesteSistemaDeServicos {
                         System.out.println("[4] Alterar telefone");
                         System.out.println("[5] Alterar nome de usuario");
                         System.out.println("[6] Alterar senha de usuario");
+                        System.out.println("[7] Sair");
                         opcao3_usuario = dadoLido.nextInt();
                         dadoLido.nextLine(); //esvazia o buffer do teclado
 
                         switch (opcao3_usuario) {
-                            
+
                             //Nome
                             case 1:
                                 System.out.println("Digite seu novo nome: ");
                                 nome_usuario = dadoLido.nextLine();
                                 controleUsuario.verificaQuemLogou(id_usuario, senha_usuario).setNome(nome_usuario);
                                 break;
-                                
+
                             //Endereco
                             case 2:
                                 System.out.println("Digite seu novo endereco: ");
                                 endereco_usuario = dadoLido.nextLine();
                                 controleUsuario.verificaQuemLogou(id_usuario, senha_usuario).setEndereco(endereco_usuario);
                                 break;
-                                
+
                             //Email   
                             case 3:
                                 System.out.println("Digite seu novo email: ");
                                 email_usuario = dadoLido.nextLine();
                                 controleUsuario.verificaQuemLogou(id_usuario, senha_usuario).setEmail(email_usuario);
                                 break;
-                                
+
                             //Telefone    
                             case 4:
                                 System.out.println("Digite seu novo telefone: ");
                                 telefone_usuario = dadoLido.nextLine();
                                 controleUsuario.verificaQuemLogou(id_usuario, senha_usuario).setTelefone(telefone_usuario);
                                 break;
-                                
+
                             //Nome usuario    
                             case 5:
                                 System.out.println("Digite seu novo nome de usuario: ");
                                 id_nova = dadoLido.nextLine();
                                 controleUsuario.verificaQuemLogou(id_usuario, senha_usuario).setId_usuario(id_nova);
                                 break;
-                                
+
                             //Senha usuario    
                             case 6:
                                 System.out.println("Digite sua nova senha de usuario: ");
                                 senha_nova = dadoLido.nextLine();
                                 controleUsuario.verificaQuemLogou(id_usuario, senha_usuario).setSenha_usuario(senha_nova);
                                 break;
-
+                                
+                            case 7:
+                                opcao_usuario = 1;
+                                break;
+                                
                             //Caso default
                             default:
                                 System.out.println("Nao existe tal possibilidade");
@@ -129,52 +135,8 @@ public class TesteSistemaDeServicos {
 
                         //Caso cliente
                         case 1:
-                            System.out.println("Digite seu nome completo: ");
-                            nome_usuario = dadoLido.nextLine();
-                            System.out.println("Digite seu endereco: ");
-                            endereco_usuario = dadoLido.nextLine();
-                            System.out.println("Digite seu email: ");
-                            email_usuario = dadoLido.nextLine();
-                            System.out.println("Digite seu telefone: ");
-                            telefone_usuario = dadoLido.nextLine();
-                            System.out.println("Digite seu nome de usuario: ");
-                            id_usuario = dadoLido.nextLine();
-                            System.out.println("Digite sua senha: ");
-                            senha_usuario = dadoLido.nextLine();
-                            Usuario cliente = new Cliente(nome_usuario, endereco_usuario, email_usuario, telefone_usuario, id_usuario, senha_usuario);
-                            controleUsuario.cadastraUsuario(cliente);
-
-                            break;
-
-                        //Caso profissional
-                        case 2:
-                            System.out.println("Digite seu nome completo: ");
-                            nome_usuario = dadoLido.nextLine();
-                            System.out.println("Digite seu endereco: ");
-                            endereco_usuario = dadoLido.nextLine();
-                            System.out.println("Digite seu email: ");
-                            email_usuario = dadoLido.nextLine();
-                            System.out.println("Digite seu telefone: ");
-                            telefone_usuario = dadoLido.nextLine();
-                            System.out.println("Digite seu nome de usuario: ");
-                            id_usuario = dadoLido.nextLine();
-                            System.out.println("Digite sua senha: ");
-                            senha_usuario = dadoLido.nextLine();
-
-                            Usuario profissional = new Profissional(nome_usuario, endereco_usuario, email_usuario, telefone_usuario, id_usuario, senha_usuario);
-                            controleUsuario.cadastraUsuario(profissional);
-
-                            break;
-
-                        //Caso administrador
-                        case 3:
-
-                            System.out.println("Digite seu id de administrador: ");
-                            id_adm = dadoLido.nextLine();
-                            System.out.println("Digite sua senha de administrador: ");
-                            senha_adm = dadoLido.nextLine();
-
-                            if (controleUsuario.verificaAdministrador(id_adm, senha_adm)) {
+                            continua = true;
+                            do {
                                 System.out.println("Digite seu nome completo: ");
                                 nome_usuario = dadoLido.nextLine();
                                 System.out.println("Digite seu endereco: ");
@@ -188,8 +150,74 @@ public class TesteSistemaDeServicos {
                                 System.out.println("Digite sua senha: ");
                                 senha_usuario = dadoLido.nextLine();
 
-                                Usuario adm = new Administrador(nome_usuario, endereco_usuario, email_usuario, telefone_usuario, id_usuario, senha_usuario);
-                                controleUsuario.cadastraUsuario(adm);
+                                Usuario cliente = new Cliente(nome_usuario, endereco_usuario, email_usuario, telefone_usuario, id_usuario, senha_usuario);
+                                if (controleUsuario.cadastraUsuario(cliente)) {
+                                    continua = false;
+                                }
+                                else
+                                    System.out.println("Usuario ja existente !");
+                            } while(continua);
+
+                            break;
+
+                        //Caso profissional
+                        case 2:
+                            continua = true;
+                            do {
+                                System.out.println("Digite seu nome completo: ");
+                                nome_usuario = dadoLido.nextLine();
+                                System.out.println("Digite seu endereco: ");
+                                endereco_usuario = dadoLido.nextLine();
+                                System.out.println("Digite seu email: ");
+                                email_usuario = dadoLido.nextLine();
+                                System.out.println("Digite seu telefone: ");
+                                telefone_usuario = dadoLido.nextLine();
+                                System.out.println("Digite seu nome de usuario: ");
+                                id_usuario = dadoLido.nextLine();
+                                System.out.println("Digite sua senha: ");
+                                senha_usuario = dadoLido.nextLine();
+
+                                Usuario cliente = new Cliente(nome_usuario, endereco_usuario, email_usuario, telefone_usuario, id_usuario, senha_usuario);
+                                if (controleUsuario.cadastraUsuario(cliente)) {
+                                    continua  = false;
+                                }
+                                else
+                                    System.out.println("Usuario ja existente !");
+                            } while(continua);
+
+                            break;
+
+                        //Caso administrador
+                        case 3:
+                            
+                            continua = true;
+                            System.out.println("Digite seu id de administrador: ");
+                            id_adm = dadoLido.nextLine();
+                            System.out.println("Digite sua senha de administrador: ");
+                            senha_adm = dadoLido.nextLine();
+
+                            if (controleUsuario.verificaAdministrador(id_adm, senha_adm)) {
+                                do {
+                                    System.out.println("Digite seu nome completo: ");
+                                    nome_usuario = dadoLido.nextLine();
+                                    System.out.println("Digite seu endereco: ");
+                                    endereco_usuario = dadoLido.nextLine();
+                                    System.out.println("Digite seu email: ");
+                                    email_usuario = dadoLido.nextLine();
+                                    System.out.println("Digite seu telefone: ");
+                                    telefone_usuario = dadoLido.nextLine();
+                                    System.out.println("Digite seu nome de usuario: ");
+                                    id_usuario = dadoLido.nextLine();
+                                    System.out.println("Digite sua senha: ");
+                                    senha_usuario = dadoLido.nextLine();
+
+                                    Usuario cliente = new Cliente(nome_usuario, endereco_usuario, email_usuario, telefone_usuario, id_usuario, senha_usuario);
+                                    if (controleUsuario.cadastraUsuario(cliente)) {
+                                        continua = false;
+                                    }
+                                    else
+                                        System.out.println("Usuario ja existente !");
+                                } while(continua);
 
                             } else {
                                 System.out.println("Voce nao possui permissao para cadastrar Administrador !");

@@ -6,7 +6,7 @@ daviziin
 senha
 class Administrador
 
-leonardo
+gabriel
 b
 b
 b
@@ -61,4 +61,20 @@ k
 k
 k
 class Administrador
+
+a
+a
+a
+a
+a
+a
+class Cliente
+
+g
+g
+g
+
+g
+g
+class Cliente
 
