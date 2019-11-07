@@ -2,8 +2,10 @@
 import java.util.*;
 import java.io.*;
 
-//Classe Controle,aqui sera o gerenciador do sistema com diversos metodos
+//Classe Controle,aqui sera o gerenciador do sistema 
+//do usuariocom diversos metodos
 //auxiliares
+
 public class ControleSistemaDeUsuario {
 
     //Atributos da classe de Controle
@@ -64,7 +66,7 @@ public class ControleSistemaDeUsuario {
     }
 
     //Metodo que le os dados de um arquivo passado como parametro,conforme o modelo
-    private void lerDados(String caminho) throws FileNotFoundException, IOException {
+    public void lerDados(String caminho) throws FileNotFoundException, IOException {
 
         BufferedReader br = new BufferedReader(new FileReader(caminho));
 
@@ -134,7 +136,7 @@ public class ControleSistemaDeUsuario {
     }
 
     //Metodo que escreve os dados em um arquivo conforme o modelo
-    private void escreverDados(String caminho) throws IOException {
+    public void escreverDados(String caminho) throws IOException {
         FileWriter arq = new FileWriter(new File(caminho), false);
         PrintWriter gravarArq = new PrintWriter(arq, false);
 
@@ -161,15 +163,5 @@ public class ControleSistemaDeUsuario {
         
         return null;
     }
-
-    //Aqui a gente executa tudo que é necessário para fechar o programa corretamente
-    public void finalizarPrograma(String diretorio) throws IOException {
-        escreverDados(diretorio);
-    }
-
-    //Aqui a gente executa tudo que é necessario para iniciar o programa corretamente
-    public void iniciarPrograma(String diretorio) throws IOException {
-        lerDados(diretorio);
-    }
-
+    
 }
