@@ -8,17 +8,15 @@ public class TesteSistemaDeServicos {
     public static void main(String[] args) throws IOException {
 
         //Aqui instanciamos uma "unidade" de controle da aplicacao
-        ControleSistemaGeral controleGeral = new ControleSistemaGeral("dadosUsuario.txt", "");
-        controleGeral.iniciarPrograma("dadosUsuario.txt", "");
+        ControleSistemaGeral controleGeral = new ControleSistemaGeral();
+        controleGeral.iniciarPrograma("dadosUsuario.txt", "dadosServico.txt");
 
         //Aqui instaniamos variaveis de auxilio
         Scanner dadoLido = new Scanner(System.in);
-        int opcao_usuario, opcao2_usuario, opcao3_usuario;
+        int opcao_usuario, opcao2_usuario;
         String nome_usuario;
         String id_usuario;
         String senha_usuario;
-        String id_nova;
-        String senha_nova;
         String telefone_usuario;
         String endereco_usuario;
         String email_usuario;
@@ -55,12 +53,12 @@ public class TesteSistemaDeServicos {
 
                         //Fluxo de possiblidades para Cliente
                         if (logado instanceof Cliente) {
-
+                            controleGeral.fluxoCliente((Cliente)logado);
                         }
 
                         //Fluxo de possiblidades para Profissional
                         if (logado instanceof Profissional) {
-
+                            controleGeral.fluxoProfissional((Profissional)logado);
                         }
 
                         //Fluxo de possiblidades para Administrador
@@ -195,7 +193,7 @@ public class TesteSistemaDeServicos {
                 //Caso de saida    
                 case 4:
                     //Aqui finalizamos o programa e salvamos todas as alteracoes feitas
-                    controleGeral.finalizarPrograma("dadosUsuario.txt", "");
+                    controleGeral.finalizarPrograma("dadosUsuario.txt", "dadosServico.txt");
                     break;
 
                 //Caso default

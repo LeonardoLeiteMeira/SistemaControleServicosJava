@@ -12,7 +12,7 @@ public class ControleSistemaDeUsuario {
     private ArrayList<Usuario> usuarios;
 
     //Construtor classe de Controle
-    public ControleSistemaDeUsuario(String diretorio) throws IOException {
+    public ControleSistemaDeUsuario() throws IOException {
         usuarios = new ArrayList<>();
     }
 

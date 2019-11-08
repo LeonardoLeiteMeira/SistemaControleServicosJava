@@ -9,8 +9,6 @@ public class ControleSistemaGeral {
     //Atributos classe Controle Sistema Geral
     private ControleSistemaDeServico controleServico;
     private ControleSistemaDeUsuario controleUsuario;
-    private String dir1;
-    private String dir2;
     private Usuario logado;
 
     Scanner dadoLido = new Scanner(System.in);
@@ -20,52 +18,155 @@ public class ControleSistemaGeral {
     }
 
     //Construtor da classe
-    public ControleSistemaGeral(String dir1, String dir2) throws IOException {
-        this.dir1 = dir1;
-        this.dir2 = dir2;
-        controleUsuario = new ControleSistemaDeUsuario(this.dir1);
+    public ControleSistemaGeral() throws IOException {
+        controleUsuario = new ControleSistemaDeUsuario();
+        controleServico = new ControleSistemaDeServico();
     }
 
     //Aqui a gente executa tudo que é necessário para fechar o programa corretamente
     public void finalizarPrograma(String dir1, String dir2) throws IOException {
         controleUsuario.escreverDados(dir1);
-        //ControleServico
+        controleServico.escreverDados(dir2);
     }
 
     //Aqui a gente executa tudo que é necessario para iniciar o programa corretamente
     public void iniciarPrograma(String dir1, String dir2) throws IOException {
         controleUsuario.lerDados(dir1);
-        //ControleServico
+        controleServico.lerDados(dir2);
     }
 
+    //Controle de fluxo do Administrador
     public void fluxoAdministrador(Administrador adm) {
         int opcao_fluxo, opcao_fluxo2;
 
-        System.out.println("Bem Vindo, " + adm.getNome());
-        System.out.println("Escolha uma opcaao");
-        System.out.println("[1] Alterar perfil");
-        System.out.println("[] Sair");
-        opcao_fluxo = dadoLido.nextInt();
-        dadoLido.nextLine(); //esvazia o buffer do teclado
+        do {
+            System.out.println("Bem Vindo, " + adm.getNome());
+            System.out.println("Escolha uma opcaao");
+            System.out.println("[1] Alterar perfil");
+            System.out.println("[2] Validar serviço");
+            System.out.println("[3] Criar novo serviço");
+            System.out.println("[4] Sair ");
+            opcao_fluxo = dadoLido.nextInt();
+            dadoLido.nextLine(); //esvazia o buffer do teclado
 
-        //Possibilidades de um Administrador
-        switch (opcao_fluxo) {
+            //Possibilidades de um Administrador
+            switch (opcao_fluxo) {
 
-            case 1:
-                alteraPerfil(adm);
-                break;
+                case 1:
+                    alteraPerfil(adm);
+                    fluxoAdministrador(adm);
+                    break;
 
-            //Caso default
-            default:
-                System.out.println("Nao existe tal possibilidade");
-                break;
-        }
+                case 2:
+                    controleServico.validarServico();
+                    break;
+
+                case 3:
+                    controleServico.criarNovoServico();
+                    break;
+
+                case 4:
+                    //Opcao de saida do perfil,salvar as alteracoes aqui
+                    break;
+
+                //Caso default
+                default:
+                    System.out.println("Nao existe tal possibilidade");
+                    break;
+            }
+        } while (opcao_fluxo != 4);
+
+    }
+    
+    //Controle de fluxo do Profissional
+    public void fluxoProfissional(Profissional prof) {
+        int opcao_fluxo, opcao_fluxo2;
+
+        do {
+            System.out.println("Bem Vindo, " + prof.getNome());
+            System.out.println("Escolha uma opcaao");
+            System.out.println("[1] Alterar perfil");
+            System.out.println("[2] Status de servico");
+            System.out.println("[3] Cadastrar valor do serviço");
+            System.out.println("[4] Criar novo serviço");
+            System.out.println("[5] Sair ");
+            opcao_fluxo = dadoLido.nextInt();
+            dadoLido.nextLine(); //esvazia o buffer do teclado
+
+            //Possibilidades de um Administrador
+            switch (opcao_fluxo) {
+
+                case 1:
+                    alteraPerfil(prof);
+                    fluxoProfissional(prof);
+                    break;
+
+                case 2:
+                    
+                    break;
+
+                case 3:
+                    controleServico.criarNovoServico();
+                    break;
+
+                case 5:
+                    //Opcao de saida do perfil,salvar as alteracoes aqui
+                    break;
+
+                //Caso default
+                default:
+                    System.out.println("Nao existe tal possibilidade");
+                    break;
+            }
+        } while (opcao_fluxo != 5);
+
+    }
+    
+        //Controle de fluxo do Cliente
+    public void fluxoCliente(Cliente cliente) {
+        int opcao_fluxo, opcao_fluxo2;
+
+        do {
+            System.out.println("Bem Vindo, " + cliente.getNome());
+            System.out.println("Escolha uma opcaao");
+            System.out.println("[1] Alterar perfil");
+            System.out.println("[2] Orçamento de Serviços");
+            System.out.println("[3] Criar novo serviço");
+            System.out.println("[4] Sair ");
+            opcao_fluxo = dadoLido.nextInt();
+            dadoLido.nextLine(); //esvazia o buffer do teclado
+
+            //Possibilidades de um Administrador
+            switch (opcao_fluxo) {
+
+                case 1:
+                    alteraPerfil(cliente);
+                    fluxoCliente(cliente);
+                    break;
+
+                case 2:
+                    break;
+
+                case 3:
+                    controleServico.criarNovoServico();
+                    break;
+
+                case 4:
+                    //Opcao de saida do perfil,salvar as alteracoes aqui
+                    break;
+
+                //Caso default
+                default:
+                    System.out.println("Nao existe tal possibilidade");
+                    break;
+            }
+        } while (opcao_fluxo != 4);
 
     }
 
     //Metodo que altera perfil
     public void alteraPerfil(Usuario logado) {
-        
+
         int opcao_altera;
         String nome_usuario;
         String id_nova;
@@ -131,8 +232,9 @@ public class ControleSistemaGeral {
                 break;
 
             case 7:
-                if(logado instanceof Administrador)
-                    fluxoAdministrador((Administrador)logado);
+                if (logado instanceof Administrador) {
+                    fluxoAdministrador((Administrador) logado);
+                }
                 break;
 
             //Caso default
