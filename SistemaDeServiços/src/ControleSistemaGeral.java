@@ -44,6 +44,7 @@ public class ControleSistemaGeral {
         System.out.println("Bem Vindo, " + adm.getNome());
         System.out.println("Escolha uma opcaao");
         System.out.println("[1] Alterar perfil");
+        System.out.println("[2] Validar serviço");
         System.out.println("[] Sair");
         opcao_fluxo = dadoLido.nextInt();
         dadoLido.nextLine(); //esvazia o buffer do teclado
@@ -54,7 +55,11 @@ public class ControleSistemaGeral {
             case 1:
                 alteraPerfil(adm);
                 break;
-
+                
+            case 2: 
+                controleServico.validarServico();
+                break;
+                
             //Caso default
             default:
                 System.out.println("Nao existe tal possibilidade");
